@@ -1,0 +1,649 @@
+{
+	"info": {
+		"_postman_id": "1e95afef-fdfe-4d00-a6c4-d359f65f9b02",
+		"name": "MCKingApi_Modulo2",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "17204431",
+		"_collection_link": "https://meu222.postman.co/workspace/Fiap~e3f277c5-de30-4223-82f2-fe7e27bb5d98/collection/17204431-1e95afef-fdfe-4d00-a6c4-d359f65f9b02?action=share&source=collection_link&creator=17204431"
+	},
+	"item": [
+		{
+			"name": "api",
+			"item": [
+				{
+					"name": "Pedidos",
+					"item": [
+						{
+							"name": "/api/Pedidos",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/Pedidos",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Pedidos"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/Pedidos",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Pedidos"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"codigo\": \"<integer>\",\n    \"cliente\": {\n      \"codigo\": \"<integer>\",\n      \"cpf\": \"<string>\",\n      \"email\": \"<string>\",\n      \"nome\": \"<string>\"\n    },\n    \"pedidoCombo\": [\n      {\n        \"codigo\": \"<integer>\",\n        \"pedidoComboItem\": [\n          {\n            \"codigo\": \"<integer>\",\n            \"nome\": \"<string>\",\n            \"preco\": \"<double>\"\n          },\n          {\n            \"codigo\": \"<integer>\",\n            \"nome\": \"<string>\",\n            \"preco\": \"<double>\"\n          }\n        ],\n        \"preco\": \"<double>\"\n      },\n      {\n        \"codigo\": \"<integer>\",\n        \"pedidoComboItem\": [\n          {\n            \"codigo\": \"<integer>\",\n            \"nome\": \"<string>\",\n            \"preco\": \"<double>\"\n          },\n          {\n            \"codigo\": \"<integer>\",\n            \"nome\": \"<string>\",\n            \"preco\": \"<double>\"\n          }\n        ],\n        \"preco\": \"<double>\"\n      }\n    ],\n    \"pedidoStatus\": {\n      \"status\": \"Finalizado\",\n      \"dataCriacao\": \"<dateTime>\"\n    },\n    \"pedidoPagamento\": {\n      \"valor\": \"<double>\",\n      \"dataPagamento\": \"<dateTime>\",\n      \"metodo\": \"MercadoPagoMock\",\n      \"qrCode\": \"<string>\"\n    }\n  },\n  {\n    \"codigo\": \"<integer>\",\n    \"cliente\": {\n      \"codigo\": \"<integer>\",\n      \"cpf\": \"<string>\",\n      \"email\": \"<string>\",\n      \"nome\": \"<string>\"\n    },\n    \"pedidoCombo\": [\n      {\n        \"codigo\": \"<integer>\",\n        \"pedidoComboItem\": [\n          {\n            \"codigo\": \"<integer>\",\n            \"nome\": \"<string>\",\n            \"preco\": \"<double>\"\n          },\n          {\n            \"codigo\": \"<integer>\",\n            \"nome\": \"<string>\",\n            \"preco\": \"<double>\"\n          }\n        ],\n        \"preco\": \"<double>\"\n      },\n      {\n        \"codigo\": \"<integer>\",\n        \"pedidoComboItem\": [\n          {\n            \"codigo\": \"<integer>\",\n            \"nome\": \"<string>\",\n            \"preco\": \"<double>\"\n          },\n          {\n            \"codigo\": \"<integer>\",\n            \"nome\": \"<string>\",\n            \"preco\": \"<double>\"\n          }\n        ],\n        \"preco\": \"<double>\"\n      }\n    ],\n    \"pedidoStatus\": {\n      \"status\": \"AguardandoPagamento\",\n      \"dataCriacao\": \"<dateTime>\"\n    },\n    \"pedidoPagamento\": {\n      \"valor\": \"<double>\",\n      \"dataPagamento\": \"<dateTime>\",\n      \"metodo\": \"MercadoPago\",\n      \"qrCode\": \"<string>\"\n    }\n  }\n]"
+								}
+							]
+						},
+						{
+							"name": "/api/Pedidos",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"clienteCodigo\": null,\n  \"pedidoCombo\": [\n    {\n      \"pedidoComboItems\": [\n        {\n          \"produtoCodigo\": 5\n        }\n      ]\n    },\n    {\n      \"pedidoComboItems\": [\n        {\n          \"produtoCodigo\": 6\n        },\n        {\n          \"produtoCodigo\": 8\n        }\n      ]\n    }\n  ]\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/Pedidos",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Pedidos"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"clienteCodigo\": \"<integer>\",\n  \"pedidoCombo\": [\n    {\n      \"pedidoComboItems\": [\n        {\n          \"produtoCodigo\": \"<integer>\"\n        },\n        {\n          \"produtoCodigo\": \"<integer>\"\n        }\n      ]\n    },\n    {\n      \"pedidoComboItems\": [\n        {\n          \"produtoCodigo\": \"<integer>\"\n        },\n        {\n          \"produtoCodigo\": \"<integer>\"\n        }\n      ]\n    }\n  ]\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/Pedidos",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Pedidos"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"codigo\": \"<integer>\",\n  \"cliente\": {\n    \"codigo\": \"<integer>\",\n    \"cpf\": \"<string>\",\n    \"email\": \"<string>\",\n    \"nome\": \"<string>\"\n  },\n  \"pedidoCombo\": [\n    {\n      \"codigo\": \"<integer>\",\n      \"pedidoComboItem\": [\n        {\n          \"codigo\": \"<integer>\",\n          \"nome\": \"<string>\",\n          \"preco\": \"<double>\"\n        },\n        {\n          \"codigo\": \"<integer>\",\n          \"nome\": \"<string>\",\n          \"preco\": \"<double>\"\n        }\n      ],\n      \"preco\": \"<double>\"\n    },\n    {\n      \"codigo\": \"<integer>\",\n      \"pedidoComboItem\": [\n        {\n          \"codigo\": \"<integer>\",\n          \"nome\": \"<string>\",\n          \"preco\": \"<double>\"\n        },\n        {\n          \"codigo\": \"<integer>\",\n          \"nome\": \"<string>\",\n          \"preco\": \"<double>\"\n        }\n      ],\n      \"preco\": \"<double>\"\n    }\n  ],\n  \"pedidoStatus\": {\n    \"status\": \"Finalizado\",\n    \"dataCriacao\": \"<dateTime>\"\n  },\n  \"pedidoPagamento\": {\n    \"valor\": \"<double>\",\n    \"dataPagamento\": \"<dateTime>\",\n    \"metodo\": \"MercadoPagoMock\",\n    \"qrCode\": \"<string>\"\n  }\n}"
+								}
+							]
+						},
+						{
+							"name": "/api/Pedidos/:codigo",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/Pedidos/:codigo",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Pedidos",
+										":codigo"
+									],
+									"variable": [
+										{
+											"key": "codigo",
+											"value": "<integer>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/Pedidos/:codigo",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Pedidos",
+												":codigo"
+											],
+											"variable": [
+												{
+													"key": "codigo"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"codigo\": \"<integer>\",\n  \"cliente\": {\n    \"codigo\": \"<integer>\",\n    \"cpf\": \"<string>\",\n    \"email\": \"<string>\",\n    \"nome\": \"<string>\"\n  },\n  \"pedidoCombo\": [\n    {\n      \"codigo\": \"<integer>\",\n      \"pedidoComboItem\": [\n        {\n          \"codigo\": \"<integer>\",\n          \"nome\": \"<string>\",\n          \"preco\": \"<double>\"\n        },\n        {\n          \"codigo\": \"<integer>\",\n          \"nome\": \"<string>\",\n          \"preco\": \"<double>\"\n        }\n      ],\n      \"preco\": \"<double>\"\n    },\n    {\n      \"codigo\": \"<integer>\",\n      \"pedidoComboItem\": [\n        {\n          \"codigo\": \"<integer>\",\n          \"nome\": \"<string>\",\n          \"preco\": \"<double>\"\n        },\n        {\n          \"codigo\": \"<integer>\",\n          \"nome\": \"<string>\",\n          \"preco\": \"<double>\"\n        }\n      ],\n      \"preco\": \"<double>\"\n    }\n  ],\n  \"pedidoStatus\": {\n    \"status\": \"Finalizado\",\n    \"dataCriacao\": \"<dateTime>\"\n  },\n  \"pedidoPagamento\": {\n    \"valor\": \"<double>\",\n    \"dataPagamento\": \"<dateTime>\",\n    \"metodo\": \"MercadoPagoMock\",\n    \"qrCode\": \"<string>\"\n  }\n}"
+								}
+							]
+						},
+						{
+							"name": "/api/Pedidos/ConfirmarPedido/:codigo",
+							"event": [
+								{
+									"listen": "test",
+									"script": {
+										"exec": [
+											"var template = `\r",
+											"<style type=\"text/css\">\r",
+											"    .tftable {font-size:14px;color:#333333;width:100%;border-width: 1px;border-color: #87ceeb;border-collapse: collapse;}\r",
+											"    .tftable th {font-size:18px;background-color:#87ceeb;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;text-align:left;}\r",
+											"    .tftable tr {background-color:#ffffff;}\r",
+											"    .tftable td {font-size:14px;border-width: 1px;padding: 8px;border-style: solid;border-color: #87ceeb;}\r",
+											"    .tftable tr:hover {background-color:#e0ffff;}\r",
+											"</style>\r",
+											"\r",
+											"<table class=\"tftable\" border=\"1\">\r",
+											"    <tr>\r",
+											"        <th>Valor</th>\r",
+											"        <th>Data de Pagamento</th>\r",
+											"        <th>Método</th>\r",
+											"        <th>QR Code</th>\r",
+											"    </tr>\r",
+											"    <tr>\r",
+											"        <td>{{response.valor}}</td>\r",
+											"        <td>{{response.dataPagamento}}</td>\r",
+											"        <td>{{response.metodo}}</td>\r",
+											"        <td>{{response.qrCode}}</td>\r",
+											"    </tr>\r",
+											"</table>\r",
+											"`;\r",
+											"\r",
+											"function constructVisualizerPayload() {\r",
+											"    return {response: pm.response.json()}\r",
+											"}\r",
+											"\r",
+											"pm.visualizer.set(template, constructVisualizerPayload());"
+										],
+										"type": "text/javascript",
+										"packages": {}
+									}
+								}
+							],
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"valor\":62.6,\n  \"dataPagamento\": \"2025-01-20T18:03:45.872Z\"\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/Pedidos/ConfirmarPedido/:codigo?mock=false",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Pedidos",
+										"ConfirmarPedido",
+										":codigo"
+									],
+									"query": [
+										{
+											"key": "mock",
+											"value": "false"
+										}
+									],
+									"variable": [
+										{
+											"key": "codigo",
+											"value": "4",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"valor\": \"<double>\",\n  \"dataPagamento\": \"<dateTime>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/Pedidos/ConfirmarPedido/:codigo?mock=false",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Pedidos",
+												"ConfirmarPedido",
+												":codigo"
+											],
+											"query": [
+												{
+													"key": "mock",
+													"value": "false"
+												}
+											],
+											"variable": [
+												{
+													"key": "codigo"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"valor\": \"<double>\",\n  \"dataPagamento\": \"<dateTime>\",\n  \"metodo\": \"MercadoPagoMock\",\n  \"qrCode\": \"<string>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "/api/Pedidos/Status/:codigo",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/Pedidos/Status/:codigo",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Pedidos",
+										"Status",
+										":codigo"
+									],
+									"variable": [
+										{
+											"key": "codigo",
+											"value": "<integer>",
+											"description": "(Required) "
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/Pedidos/Status/:codigo",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Pedidos",
+												"Status",
+												":codigo"
+											],
+											"variable": [
+												{
+													"key": "codigo"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"status\": \"EmPreparo\",\n  \"dataCriacao\": \"<dateTime>\"\n}"
+								}
+							]
+						},
+						{
+							"name": "/api/Pedidos/webhook/ConfirmarPagamento",
+							"request": {
+								"method": "POST",
+								"header": [
+									{
+										"key": "Content-Type",
+										"value": "application/json"
+									},
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"body": {
+									"mode": "raw",
+									"raw": "{\n  \"action\": \"TESTE\",\n  \"application_id\": \"TESTE\",\n  \"data\": {\n    \"currency_id\": \"TESTE\",\n    \"marketplace\": \"TESTE\",\n    \"status\": \"TESTE\"\n  },\n  \"date_created\": \"2025-01-20T18:03:45.872Z\",\n  \"id\": \"4\",\n  \"live_mode\": false,\n  \"status\": \"TESTE\",\n  \"type\": \"TESTE\",\n  \"user_id\": 0,\n  \"version\": 0\n}",
+									"options": {
+										"raw": {
+											"headerFamily": "json",
+											"language": "json"
+										}
+									}
+								},
+								"url": {
+									"raw": "{{baseUrl}}/api/Pedidos/webhook/ConfirmarPagamento?mock=true",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Pedidos",
+										"webhook",
+										"ConfirmarPagamento"
+									],
+									"query": [
+										{
+											"key": "mock",
+											"value": "true"
+										}
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "POST",
+										"header": [
+											{
+												"key": "Content-Type",
+												"value": "application/json"
+											},
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"body": {
+											"mode": "raw",
+											"raw": "{\n  \"action\": \"<string>\",\n  \"application_id\": \"<string>\",\n  \"data\": {\n    \"currency_id\": \"<string>\",\n    \"marketplace\": \"<string>\",\n    \"status\": \"<string>\"\n  },\n  \"date_created\": \"<dateTime>\",\n  \"id\": \"<string>\",\n  \"live_mode\": \"<boolean>\",\n  \"status\": \"<string>\",\n  \"type\": \"<string>\",\n  \"user_id\": \"<long>\",\n  \"version\": \"<integer>\"\n}",
+											"options": {
+												"raw": {
+													"headerFamily": "json",
+													"language": "json"
+												}
+											}
+										},
+										"url": {
+											"raw": "{{baseUrl}}/api/Pedidos/webhook/ConfirmarPagamento?mock=false",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Pedidos",
+												"webhook",
+												"ConfirmarPagamento"
+											],
+											"query": [
+												{
+													"key": "mock",
+													"value": "false"
+												}
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "{\n  \"codigo\": \"<integer>\",\n  \"cliente\": {\n    \"codigo\": \"<integer>\",\n    \"cpf\": \"<string>\",\n    \"email\": \"<string>\",\n    \"nome\": \"<string>\"\n  },\n  \"pedidoCombo\": [\n    {\n      \"codigo\": \"<integer>\",\n      \"pedidoComboItem\": [\n        {\n          \"codigo\": \"<integer>\",\n          \"nome\": \"<string>\",\n          \"preco\": \"<double>\"\n        },\n        {\n          \"codigo\": \"<integer>\",\n          \"nome\": \"<string>\",\n          \"preco\": \"<double>\"\n        }\n      ],\n      \"preco\": \"<double>\"\n    },\n    {\n      \"codigo\": \"<integer>\",\n      \"pedidoComboItem\": [\n        {\n          \"codigo\": \"<integer>\",\n          \"nome\": \"<string>\",\n          \"preco\": \"<double>\"\n        },\n        {\n          \"codigo\": \"<integer>\",\n          \"nome\": \"<string>\",\n          \"preco\": \"<double>\"\n        }\n      ],\n      \"preco\": \"<double>\"\n    }\n  ],\n  \"pedidoStatus\": {\n    \"status\": \"Finalizado\",\n    \"dataCriacao\": \"<dateTime>\"\n  },\n  \"pedidoPagamento\": {\n    \"valor\": \"<double>\",\n    \"dataPagamento\": \"<dateTime>\",\n    \"metodo\": \"MercadoPagoMock\",\n    \"qrCode\": \"<string>\"\n  }\n}"
+								}
+							]
+						},
+						{
+							"name": "/api/Pedidos/Monitor",
+							"request": {
+								"method": "GET",
+								"header": [
+									{
+										"key": "Accept",
+										"value": "text/plain"
+									}
+								],
+								"url": {
+									"raw": "{{baseUrl}}/api/Pedidos/Monitor",
+									"host": [
+										"{{baseUrl}}"
+									],
+									"path": [
+										"api",
+										"Pedidos",
+										"Monitor"
+									]
+								}
+							},
+							"response": [
+								{
+									"name": "Success",
+									"originalRequest": {
+										"method": "GET",
+										"header": [
+											{
+												"key": "Accept",
+												"value": "text/plain"
+											}
+										],
+										"url": {
+											"raw": "{{baseUrl}}/api/Pedidos/Monitor",
+											"host": [
+												"{{baseUrl}}"
+											],
+											"path": [
+												"api",
+												"Pedidos",
+												"Monitor"
+											]
+										}
+									},
+									"status": "OK",
+									"code": 200,
+									"_postman_previewlanguage": "json",
+									"header": [
+										{
+											"key": "Content-Type",
+											"value": "application/json"
+										}
+									],
+									"cookie": [],
+									"body": "[\n  {\n    \"pedidoCodigo\": \"<integer>\",\n    \"status\": \"Cancelado\",\n    \"dataCriacao\": \"<dateTime>\"\n  },\n  {\n    \"pedidoCodigo\": \"<integer>\",\n    \"status\": \"EmPreparo\",\n    \"dataCriacao\": \"<dateTime>\"\n  }\n]"
+								}
+							]
+						}
+					]
+				}
+			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "baseUrl",
+			"value": "http://localhost:62922"
+		}
+	]
+}

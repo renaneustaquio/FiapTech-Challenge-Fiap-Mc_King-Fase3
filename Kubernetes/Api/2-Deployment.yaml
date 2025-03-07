@@ -1,0 +1,73 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: mckingapi-deployment
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mckingapi-pod
+  template:
+    metadata:
+      labels:
+        app: mckingapi-pod
+    spec:
+      containers:
+      - name: mckingapi-container
+        image: docker.io/renaneustaquio/tech-challenge-fiap-mc-king-fase2:latest
+        imagePullPolicy: Always 
+        env:
+          - name: ASPNETCORE_ENVIRONMENT
+            value: Production
+          - name: ConnectionStrings__DefaultConnection
+            valueFrom:
+              secretKeyRef:
+                name: mckingapi-secrets
+                key: postgres-connection-string
+          - name: MercadoPago__UrlBase
+            value: "https://api.mercadopago.com/"
+          - name: MercadoPago__ClientSecret
+            valueFrom:
+              secretKeyRef:
+                name: mckingapi-secrets
+                key: mercado-pago-client-secret
+          - name: MercadoPago__ClientId
+            valueFrom:
+              secretKeyRef:
+                name: mckingapi-secrets
+                key: mercado-pago-client-id
+          - name: MercadoPago__ClientCredentials
+            valueFrom:
+              secretKeyRef:
+                name: mckingapi-secrets
+                key: mercado-pago-client-credentials
+          - name: MercadoPago__UserId
+            value: "2198134554"
+          - name: MercadoPago__PosId
+            value: "PMCK002"
+          - name: MercadoPago__AccessToken
+            valueFrom:
+              secretKeyRef:
+                name: mckingapi-secrets
+                key: mercado-pago-access-token
+        resources:
+          limits:
+            memory: "256Mi"
+            cpu: "1000m"
+        ports:
+        - containerPort: 8080
+        livenessProbe:
+          httpGet:
+            path: api/HealthCheck/live
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 10
+          timeoutSeconds: 5
+          failureThreshold: 3
+        readinessProbe:
+          httpGet:
+            path: api/HealthCheck/ready
+            port: 8080
+          initialDelaySeconds: 30
+          periodSeconds: 5
+          timeoutSeconds: 3
