@@ -22,7 +22,7 @@ jobs:
 
       - name: Build da imagem Docker
         run: |
-          docker build -t ghcr.io/${{ github.actor }}/mckingapi:latest ./API/Dockerfile .
+          docker buildx build -t ghcr.io/renaneustaquio/mckingapi:latest -f ./API/Dockerfile .
 
       - name: Push da imagem Docker
         run: |
