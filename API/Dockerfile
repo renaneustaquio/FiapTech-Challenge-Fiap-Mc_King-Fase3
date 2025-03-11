@@ -4,11 +4,11 @@ EXPOSE 8080
 
 FROM mcr.microsoft.com/dotnet/sdk:8.0 AS build
 WORKDIR /src
-COPY ./API/API.csproj API/
-COPY ./CasosDeUso/CasosDeUso.csproj CasosDeUso/
-COPY ./Entidades/Entidades.csproj Entidades/
-COPY ./Infra/Infra.csproj Infra/
-COPY ./InterfaceAdapters/InterfaceAdapters.csproj InterfaceAdapters/
+COPY ../API/API.csproj API/
+COPY ../CasosDeUso/CasosDeUso.csproj CasosDeUso/
+COPY ../Entidades/Entidades.csproj Entidades/
+COPY ../Infra/Infra.csproj Infra/
+COPY ../InterfaceAdapters/InterfaceAdapters.csproj InterfaceAdapters/
 RUN dotnet restore "./API/API.csproj"
 COPY . . 
 WORKDIR "/src/API"
