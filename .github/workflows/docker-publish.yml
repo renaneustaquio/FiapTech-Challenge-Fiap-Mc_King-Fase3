@@ -27,3 +27,11 @@ jobs:
       - name: Push da imagem Docker
         run: |
           docker push ghcr.io/${{ github.actor }}/mckingapi:latest
+      
+      - name: Torna a imagem publica
+        run: |
+          curl -X PATCH \
+            -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
+            -H "Accept: application/vnd.github.v3+json" \
+            -d '{"visibility": "public"}' \
+            https://api.github.com/user/packages/container/${{ github.repository }}/ghcr.io/${{ github.repository }}/mckingapi/versions/latest
