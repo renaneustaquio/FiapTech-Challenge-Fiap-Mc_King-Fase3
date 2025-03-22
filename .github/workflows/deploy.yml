@@ -1,5 +1,10 @@
 name: pipeline
 on:
+  push:
+    branches:
+      - master
+      - develop
+      - release
   pull_request:
     branches:
       - master
@@ -61,26 +66,33 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          $isPR = "${{ github.event_name }}" -eq "pull_request"
           $scannerPath = ".\.sonar\scanner\dotnet-sonarscanner"
-          $beginCmd = "$scannerPath begin /k:`"mayaramanziFiap_Tech-Challenge-Fiap-Mc_King_Fase3`" /o:`"mayaramanzifiap`" /d:sonar.token=`"${{ secrets.SONAR_TOKEN }}`" /d:sonar.host.url=`"https://sonarcloud.io`""
+          $projectKey = "mayaramanziFiap_Tech-Challenge-Fiap-Mc_King_Fase3"
+          $org = "mayaramanzifiap"
+          $sonarHost = "https://sonarcloud.io"
 
-          if ($isPR) {
+          if ("${{ github.event_name }}" -eq "pull_request") {
             $prKey = "${{ github.event.pull_request.number }}"
             $prBranch = "${{ github.head_ref }}"
             $baseBranch = "${{ github.base_ref }}"
-            $beginCmd += " /d:sonar.pullrequest.key=`"$prKey`" /d:sonar.pullrequest.branch=`"$prBranch`" /d:sonar.pullrequest.base=`"$baseBranch`""
+            $beginCmd = "$scannerPath begin /k:`"$projectKey`" /o:`"$org`" /d:sonar.token=`"$env:SONAR_TOKEN`" /d:sonar.host.url=`"$sonarHost`" /d:sonar.pullrequest.key=`"$prKey`" /d:sonar.pullrequest.branch=`"$prBranch`" /d:sonar.pullrequest.base=`"$baseBranch`""
+          } else {
+            $beginCmd = "$scannerPath begin /k:`"$projectKey`" /o:`"$org`" /d:sonar.token=`"$env:SONAR_TOKEN`" /d:sonar.host.url=`"$sonarHost`""
           }
 
+          Write-Host "Running SonarScanner Begin..."
           Invoke-Expression $beginCmd
+
           dotnet build 9soat-g63-mc-king.sln
-          $endCmd = "$scannerPath end /d:sonar.token=`"${{ secrets.SONAR_TOKEN }}`""
+
+          $endCmd = "$scannerPath end /d:sonar.token=`"$env:SONAR_TOKEN`""
+          Write-Host "Running SonarScanner End..."
           Invoke-Expression $endCmd
 
   Publica_Image:
     runs-on: ubuntu-latest
     needs: SonarQube
-    if: github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v3
         with:
@@ -104,11 +116,11 @@ jobs:
         run: |
           docker build -t ghcr.io/${{ github.actor }}/mckingapi:latest -f ./API/Dockerfile .
 
-      - name: Push Docker Image (only on master)
+      - name: Push Docker Image
         run: |
           docker push ghcr.io/${{ github.actor }}/mckingapi:latest
 
-      - name: Make GHCR Image Public (only on master)
+      - name: Make GHCR Image Public
         run: |
           curl -X PATCH \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
@@ -119,7 +131,7 @@ jobs:
   Deploy-EKS:
     runs-on: ubuntu-latest
     needs: Publica_Image
-    if: github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
     steps:
       - name: Checkout código
         uses: actions/checkout@v3
