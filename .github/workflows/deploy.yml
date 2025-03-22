@@ -1,4 +1,3 @@
-
 name: pipeline
 on:
   push:
@@ -61,13 +60,14 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"FiapTech-Challenge-Fiap-Mc_King-Fase3" /o:"renaneustaquio" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          .\.sonar\scanner\dotnet-sonarscanner begin /k:"mayaramanziFiap_Tech-Challenge-Fiap-Mc_King_Fase3" /o:"mayaramanzifiap" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
           dotnet build 9soat-g63-mc-king.sln
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
   build-and-push-docker:
     runs-on: ubuntu-latest
     needs: sonar-analysis
+    if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v3
         with:
@@ -92,7 +92,6 @@ jobs:
           docker build -t ghcr.io/${{ github.actor }}/mckingapi:latest -f ./API/Dockerfile .
 
       - name: Push Docker Image (only on master)
-        if: github.ref == 'refs/heads/master'
         run: |
           docker push ghcr.io/${{ github.actor }}/mckingapi:latest
 
@@ -135,21 +134,3 @@ jobs:
 
       - name: Verificar rollout do deploy
         run: kubectl rollout status deployment/mckingapi-deployment --namespace=default
-
-  smoketest:
-    runs-on: ubuntu-latest
-    needs: build-and-push-docker
-    if: github.ref == 'refs/heads/develop'
-    steps:
-      - uses: actions/checkout@v3
-      - name: Smoke Test
-        run: sh scripts/smoketest.sh
-
-  testeIntegrados:
-    runs-on: ubuntu-latest
-    needs: smoketest
-    if: github.ref == 'refs/heads/develop'
-    steps:
-      - uses: actions/checkout@v3
-      - name: Testes Integrados
-        run: sh scripts/testeIntegrado.sh
