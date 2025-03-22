@@ -1,0 +1,30 @@
+name: Teste_Unitario
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    types: [opened, synchronize, reopened]
+jobs:
+  build:
+    name: Teste_Unitario
+    runs-on: ubuntu-latest
+    needs: Publica_Image
+    steps:
+      - uses: actions/checkout@v3
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: '8.0.x'
+
+      - name: Run All Tests
+        run: |
+          for proj in CasosDeUsos.Tests Entidades.Tests InterfaceAdapters.Tests Infra.Tests; do
+            echo "Restoring $proj..."
+            dotnet restore $proj
+            echo "Running tests for $proj..."
+            dotnet test $proj --no-restore --verbosity normal
+          done
