@@ -61,9 +61,21 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         shell: powershell
         run: |
-          .\.sonar\scanner\dotnet-sonarscanner begin /k:"mayaramanziFiap_Tech-Challenge-Fiap-Mc_King_Fase3" /o:"mayaramanzifiap" /d:sonar.token="${{ secrets.SONAR_TOKEN }}" /d:sonar.host.url="https://sonarcloud.io"
+          $isPR = "${{ github.event_name }}" -eq "pull_request"
+          $scannerPath = ".\.sonar\scanner\dotnet-sonarscanner"
+          $beginCmd = "$scannerPath begin /k:`"mayaramanziFiap_Tech-Challenge-Fiap-Mc_King_Fase3`" /o:`"mayaramanzifiap`" /d:sonar.token=`"${{ secrets.SONAR_TOKEN }}`" /d:sonar.host.url=`"https://sonarcloud.io`""
+
+          if ($isPR) {
+            $prKey = "${{ github.event.pull_request.number }}"
+            $prBranch = "${{ github.head_ref }}"
+            $baseBranch = "${{ github.base_ref }}"
+            $beginCmd += " /d:sonar.pullrequest.key=`"$prKey`" /d:sonar.pullrequest.branch=`"$prBranch`" /d:sonar.pullrequest.base=`"$baseBranch`""
+          }
+
+          Invoke-Expression $beginCmd
           dotnet build 9soat-g63-mc-king.sln
-          .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
+          $endCmd = "$scannerPath end /d:sonar.token=`"${{ secrets.SONAR_TOKEN }}`""
+          Invoke-Expression $endCmd
 
   Publica_Image:
     runs-on: ubuntu-latest
@@ -97,7 +109,6 @@ jobs:
           docker push ghcr.io/${{ github.actor }}/mckingapi:latest
 
       - name: Make GHCR Image Public (only on master)
-        if: github.ref == 'refs/heads/master'
         run: |
           curl -X PATCH \
             -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" \
