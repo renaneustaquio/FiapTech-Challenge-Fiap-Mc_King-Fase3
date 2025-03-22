@@ -7,7 +7,7 @@ on:
       - release
 
 jobs:
-  unit-test:
+  Teste_Unitario:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -28,9 +28,9 @@ jobs:
             dotnet test $proj --no-restore --verbosity normal
           done
 
-  sonar-analysis:
+  SonarQube:
     runs-on: windows-latest
-    needs: unit-test
+    needs: Teste_Unitario
     steps:
       - name: Set up JDK 17
         uses: actions/setup-java@v4
@@ -52,6 +52,7 @@ jobs:
         if: steps.cache-sonar-scanner.outputs.cache-hit != 'true'
         shell: powershell
         run: |
+          Remove-Item -Path .\.sonar\scanner -Recurse -Force -ErrorAction SilentlyContinue
           New-Item -Path .\.sonar\scanner -ItemType Directory
           dotnet tool install dotnet-sonarscanner --tool-path .\.sonar\scanner
 
@@ -64,9 +65,9 @@ jobs:
           dotnet build 9soat-g63-mc-king.sln
           .\.sonar\scanner\dotnet-sonarscanner end /d:sonar.token="${{ secrets.SONAR_TOKEN }}"
 
-  build-and-push-docker:
+  Publica_Image:
     runs-on: ubuntu-latest
-    needs: sonar-analysis
+    needs: SonarQube
     if: github.ref == 'refs/heads/master'
     steps:
       - uses: actions/checkout@v3
@@ -104,9 +105,9 @@ jobs:
             -d '{"visibility": "public"}' \
             https://api.github.com/user/packages/container/${{ github.repository }}/ghcr.io/${{ github.repository }}/mckingapi/versions/latest
 
-  deploy-eks:
+  Deploy-EKS:
     runs-on: ubuntu-latest
-    needs: build-and-push-docker
+    needs: Publica_Image
     if: github.ref == 'refs/heads/master'
     steps:
       - name: Checkout código
@@ -130,7 +131,7 @@ jobs:
 
       - name: Atualizar imagem no EKS
         run: |
-          kubectl set image deployment/mckingapi-deployment mckingapi=ghcr.io/${{ github.actor }}/mckingapi:latest --namespace=default
+          kubectl set image deployment/mckingapi-deployment  mckingapi-container=ghcr.io/${{ github.actor }}/mckingapi:latest --namespace=default
 
       - name: Verificar rollout do deploy
         run: kubectl rollout status deployment/mckingapi-deployment --namespace=default
