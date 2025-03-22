@@ -69,8 +69,8 @@ jobs:
         shell: powershell
         run: |
           $scannerPath = ".\.sonar\scanner\dotnet-sonarscanner"
-          $projectKey = "mayaramanziFiap_Tech-Challenge-Fiap-Mc_King_Fase3"
-          $org = "mayaramanzifiap"
+          $projectKey = "renaneustaquio_FiapTech-Challenge-Fiap-Mc_King-Fase3"
+          $org = "renaneustaquio"
           $sonarHost = "https://sonarcloud.io"
 
           if ("${{ github.event_name }}" -eq "pull_request") {
