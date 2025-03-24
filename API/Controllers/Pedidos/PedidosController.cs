@@ -1,9 +1,12 @@
-﻿using Infra.MercadoPago.Presenters;
+﻿using Amazon.Runtime;
+using Infra.MercadoPago.Presenters;
 using InterfaceAdapters.Pedidos.Controllers.Interfaces;
 using InterfaceAdapters.Pedidos.Enums;
 using InterfaceAdapters.Pedidos.Presenters.Requests;
 using InterfaceAdapters.Pedidos.Presenters.Responses;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
+using System.Net;
 
 namespace API.Controllers.Pedidos
 {
@@ -11,6 +14,7 @@ namespace API.Controllers.Pedidos
     [ApiController]
     public class PedidosController(IPedidoController pedidoController) : ControllerBase
     {
+
         [HttpGet]
         public ActionResult<IList<PedidoResponse>> Consultar()
         {
@@ -19,15 +23,39 @@ namespace API.Controllers.Pedidos
 
         [HttpGet]
         [Route("{codigo}")]
-        public ActionResult<PedidoResponse> Consultar(int codigo)
+        public ActionResult<PedidoResponse> Consultar( int codigo,[FromHeader(Name = "Authorization")] string? authorization)
         {
+
+            var token = authorization?.Replace("Bearer ", "");
+            TokenService _tokenService = new TokenService();
+            // Pegue o cabeçalho Authorization da requisição
+            string authorizationHeader = Request.Headers.Authorization;
+
+            // Use o TokenService para extrair o username
+            string username = _tokenService.ExtraiDadosDoToken(authorizationHeader);
+
+            if (username == null)
+            {
+                return Unauthorized("Token inválido ou ausente.");
+            }
+
             return pedidoController.Consultar(codigo);
         }
 
         [HttpGet]
         [Route("Status/{codigo}")]
-        public ActionResult<PedidoStatusResponse> ConsultarStatus(int codigo)
+        public ActionResult<PedidoStatusResponse> ConsultarStatus(int codigo, string? authorization)
         {
+            // Pegue o cabeçalho Authorization da requisição
+            string jwtToken = Request.Headers.Authorization;
+            var token = authorization?.Replace("Bearer ", "");
+
+            var tokenService = new TokenService();
+            if (tokenService.ValidaToken(token))
+            {
+                return Ok("Token válido. Acesso permitido.");
+            }
+
             return pedidoController.ConsultarStatus(codigo);
         }
 
