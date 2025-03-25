@@ -1,5 +1,7 @@
-﻿using Infra.MercadoPago.Gateway;
+﻿using Infra.Autenticacao.Gateway;
+using Infra.MercadoPago.Gateway;
 using Infra.Transactions;
+using InterfaceAdapters.Autenticacao.Gateway.Interfaces;
 using InterfaceAdapters.MercadoPago.Gateway.Interfaces;
 using InterfaceAdapters.Transactions.Interfaces;
 using Microsoft.Extensions.Configuration;
@@ -13,6 +15,7 @@ public static class InfraBootstrapper
     {
         services.AddTransient<IUnitOfWorks, UnitOfWorks>();
         services.AddTransient<IMercadoPagoGateway, MercadoPagoGateway>();
+        services.AddTransient<IAutenticacaoGateway, AutenticacaoGateway>();
 
         services.AddNHibernate(configuration);
 

@@ -10,7 +10,7 @@ namespace InterfaceAdapters.Pedidos.Controllers.Interfaces
         List<PedidoResponse> Consultar();
         PedidoResponse Consultar(int codigo);
         PedidoStatusResponse ConsultarStatus(int codigo);
-        PedidoResponse Inserir(PedidoRequest pedidoRequest);
+        PedidoResponse Inserir(PedidoRequest pedidoRequest, string? token);
         PedidoResponse AlterarStatus(int codigo, StatusPedido statusPedido);
         Task<int> ConfirmarPagamento(string codigoPagamento, MetodoPagamentoEnum metodoPagamento);
         Task<PedidoPagamentoResponse> ConfirmarPedido(int codigo, PedidoPagamentoRequest pedidoPagamentoRequest, MetodoPagamentoEnum metodoPagamento);

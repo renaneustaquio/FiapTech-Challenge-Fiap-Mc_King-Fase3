@@ -102,9 +102,9 @@ namespace CasosDeUso.Pedidos
             return [];
         }
 
-        public PedidoComando CadastrarPedido(PedidoComando pedidoComando)
+        public PedidoComando CadastrarPedido(PedidoComando pedidoComando,string? token)
         {
-            var clienteComando = pedidoComando.Cliente != null ? _ = clienteCasosDeUso.ConsultarPorCodigo(pedidoComando.Cliente.Codigo) : null;
+            var clienteComando = !string.IsNullOrEmpty(token) ? _ = clienteCasosDeUso.ConsultarPorToken(token) : null;
 
             if (pedidoComando.PedidoCombo == null || !pedidoComando.PedidoCombo.Any())
                 throw new RegraNegocioException("Pedido deve conter pelo menos um combo.");

@@ -48,7 +48,14 @@ namespace API.Controllers.Pedidos
         [HttpPost]
         public ActionResult<int> Inserir(PedidoRequest pedidoRequest)
         {
-            return pedidoController.Inserir(pedidoRequest).Codigo;
+            string? token = null;
+
+            if (Request.Headers.TryGetValue("Authorization", out Microsoft.Extensions.Primitives.StringValues value))
+            {
+                token = value.ToString().Replace("Bearer ", "");
+            }
+
+            return pedidoController.Inserir(pedidoRequest, token).Codigo;
         }
 
         [HttpPut]

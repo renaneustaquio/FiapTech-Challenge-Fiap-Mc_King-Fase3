@@ -34,6 +34,12 @@ namespace CasosDeUso.Clientes
             var cliente = clienteGateway.RetornarPorCodigo(codigo) ??
                 throw new RegraNegocioException("Cliente não encontrado");
 
+            return mapper.Map<ClienteComando>(cliente); 
+        }
+
+        public ClienteComando ConsultarPorToken(string token)
+        {
+            var cliente = clienteGateway.RetornarPorToken(token);
             return mapper.Map<ClienteComando>(cliente); ;
         }
 
