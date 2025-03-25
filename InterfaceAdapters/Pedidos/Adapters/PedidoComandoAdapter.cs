@@ -29,7 +29,6 @@ namespace InterfaceAdapters.Pedidos.Adapters
             CreateMap<PedidoStatusComando, PedidoStatusMonitorResponse>();
 
             CreateMap<PedidoRequest, PedidoComando>()
-                .ForMember(dest => dest.Cliente, opt => opt.MapFrom(src => src.ClienteCodigo.HasValue ? new Cliente(src.ClienteCodigo.Value) : null))
                 .ForMember(dest => dest.PedidoCombo, opt => opt.MapFrom(src => src.PedidoCombo));
 
             CreateMap<PedidoComboRequest, PedidoComboComando>()
