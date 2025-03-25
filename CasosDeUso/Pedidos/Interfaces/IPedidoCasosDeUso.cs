@@ -9,7 +9,7 @@ namespace CasosDeUso.Pedidos.Interfaces
         PedidoComando ConsultarPorCodigo(int codigo);
         List<PedidoComando> ConsultarPedidosCozinha();
         List<PedidoStatusComando> ConsultarPedidosMonitor();
-        PedidoComando CadastrarPedido(PedidoComando pedido);
+        PedidoComando CadastrarPedido(PedidoComando pedido, string? token);
         PedidoStatusComando ConsultarStatus(int codigo);
         PedidoComando AlterarStatus(int codigo, StatusPedido statusPedido);
         PedidoComando InserirCombo(int codigo, PedidoComboComando pedidoComboComando);

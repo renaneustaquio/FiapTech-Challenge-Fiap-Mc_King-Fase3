@@ -84,7 +84,7 @@ namespace InterfaceAdapters.Pedidos.Controllers
             return [];
         }
 
-        public PedidoResponse Inserir(PedidoRequest pedidoRequest)
+        public PedidoResponse Inserir(PedidoRequest pedidoRequest, string? token)
         {
             try
             {
@@ -92,7 +92,8 @@ namespace InterfaceAdapters.Pedidos.Controllers
 
                 var pedido = mapper.Map<PedidoComando>(pedidoRequest);
 
-                pedido = pedidoCasosDeUso.CadastrarPedido(pedido);
+
+                pedido = pedidoCasosDeUso.CadastrarPedido(pedido, token);
 
                 unitOfWorks.Commit();
 

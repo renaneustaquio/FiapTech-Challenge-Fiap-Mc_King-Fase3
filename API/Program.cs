@@ -1,3 +1,5 @@
+using Amazon.CognitoIdentityProvider;
+using Amazon.Runtime;
 using CasosDeUso;
 using Entidades.Util;
 using Infra;
@@ -12,6 +14,18 @@ builder.Logging.ClearProviders();
 builder.Logging.AddConsole();
 
 builder.WebHost.UseUrls("http://0.0.0.0:8080");
+
+var awsConfig = builder.Configuration.GetSection("AWS");
+var accessKey = awsConfig["AccessKey"];
+var secretKey = awsConfig["SecretKey"];
+var sessionToken = awsConfig["SessionToken"];
+var region = awsConfig["Region"];
+
+var credentials = new SessionAWSCredentials(accessKey, secretKey, sessionToken);
+
+builder.Services.AddSingleton<IAmazonCognitoIdentityProvider>(
+    new AmazonCognitoIdentityProviderClient(credentials, Amazon.RegionEndpoint.GetBySystemName(region))
+);
 
 builder.Services.AddCors(options =>
 {

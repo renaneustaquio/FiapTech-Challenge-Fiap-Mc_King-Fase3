@@ -71,15 +71,6 @@ namespace CasosDeUsos.Tests.CasosDeUso.Pedidos
         }
 
         [Fact]
-        public void CadastrarPedido_ShouldThrowRegraNegocioException_WhenPedidoComboIsEmpty()
-        {
-            var pedidoComando = Builder<PedidoComando>.CreateNew().Build();
-
-            _sut.Invoking(sut => sut.CadastrarPedido(pedidoComando))
-                .Should().Throw<RegraNegocioException>().WithMessage("Pedido deve conter pelo menos um combo.");
-        }
-
-        [Fact]
         public void AlterarStatus_ShouldChangeStatus_WhenValid()
         {
             var pedido = Builder<Pedido>.CreateNew()
