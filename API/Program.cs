@@ -82,7 +82,7 @@ app.UseExceptionHandler(errorApp =>
         {
             var errorDetails = new
             {
-                Title = "Regra de Negócio",
+                Title = "Regra de NegÃ³cio",
                 ex.Message,
             };
 
@@ -92,4 +92,3 @@ app.UseExceptionHandler(errorApp =>
 });
 
 app.Run();
-
